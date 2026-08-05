@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # Base de Datos 1: MongoDB (Para Módulo de Usuarios)
+  mongo_db:
+    image: mongo:latest
+    container_name: monolith_mongo
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password123
+    volumes:
+      - mongo_data:/data/db
+
+  # Base de Datos 2: PostgreSQL (Para Productos y Órdenes)
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: monolith_postgres
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: monolith_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  mongo_data:
+  postgres_data:
