@@ -8,7 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
-
+    // conexion con la base de datos a traves del modelo de usuario
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {//create a new user
@@ -33,6 +33,7 @@ export class UsersService {
     }
     // encontrar por id
     async findById(id: string): Promise<User | null> {
-        return this.userModel.findById(id).exec();
+        // evitamos mostrar la contraseña al buscar por id
+        return this.userModel.findById(id).select('-password').exec();
     }
 }
