@@ -7,12 +7,14 @@ import { Controller,
     Param,
     Body,
     ParseArrayPipe,
+    Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { AuthGuard } from '@nestjs/passport';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -36,8 +38,8 @@ export class ProductsController {
   }
 
     @Get()
-    async findAll() {
-        return this.productsService.findAll();
+    async findAll(@Query() paginationDto: PaginationDto) {
+        return this.productsService.findAll(paginationDto);
     }
 
     @Get(':code')

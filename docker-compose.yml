@@ -1,10 +1,9 @@
-version: '3.8'
-
 services:
   # Base de Datos 1: MongoDB (Para Módulo de Usuarios)
   mongo_db:
     image: mongo:latest
     container_name: monolith_mongo
+    stop_grace_period: 20s
     ports:
       - "27018:27017"
     environment:
@@ -17,6 +16,7 @@ services:
   postgres_db:
     image: postgres:15-alpine
     container_name: monolith_postgres
+    stop_grace_period: 20s
     ports:
       - "5433:5432"
     environment:
